@@ -19,6 +19,8 @@ public class Compute_Attributes {
 		public String name;
 		public String _delete;
 		
+		public Interfaces_Attributes() {}
+		
 		public Interfaces_Attributes(String network, String name, String _delete) {
 			this.network = network;
 			this.name = name;
@@ -32,6 +34,8 @@ public class Compute_Attributes {
 		public String size_gb;
 		public String id;
 		public String _delete;
+		
+		public Volumes_Attributes() {}
 		
 		public Volumes_Attributes(String storage_domain, String size_gb, String id, String _delete) {
 			this.storage_domain = storage_domain;

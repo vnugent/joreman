@@ -1,14 +1,24 @@
 package org.vnguyen.joreman;
 
+import java.io.IOException;
 import java.util.HashMap;
 
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.ext.ContextResolver;
+
+import org.jboss.resteasy.spi.ResteasyProviderFactory;
 import org.vnguyen.joreman.Compute_Attributes.Interfaces_Attributes;
 import org.vnguyen.joreman.Compute_Attributes.Volumes_Attributes;
+
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 
 
 public class Builders {
-
+	public static final String DEFAULT_SIMPLE_HOST_JSON = "/templates/simple.host.json";
+	
 	public static Compute_Attributes newComputeAttribute() {
 		Compute_Attributes result = new Compute_Attributes();
 		result.memory = "1073741824";
@@ -49,5 +59,12 @@ public class Builders {
 		return newHost;
 	}
 		
+	
+	public static Host newTemplate(String jsonFile) throws Exception {
+		ContextResolver<ObjectMapper> ctx = ResteasyProviderFactory.getInstance().getContextResolver(ObjectMapper.class, MediaType.APPLICATION_JSON_TYPE);
+		Host host = ctx.getContext(null).readValue(Builders.class.getClass().getResourceAsStream(jsonFile), Host.class);
+		return host;
+		
+	}
 	
 }
