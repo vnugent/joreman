@@ -24,7 +24,7 @@ public class Deserialization {
 	
 	@Test
 	public void toJson() throws Exception {
-		Host host = HostFormBuilder.newTemplate("foos").withHostGroup(new SomeHostGroup("4"));
+		Host host = HostFormBuilder.newTemplate("foos").withHostGroup(new ExampleHostGroup("gotcha"));
 		
 		ContextResolver<ObjectMapper> ctx = ResteasyProviderFactory.getInstance().getContextResolver(ObjectMapper.class, MediaType.APPLICATION_JSON_TYPE);
 		String json = ctx.getContext(null).writerWithDefaultPrettyPrinter().writeValueAsString(host);
@@ -32,13 +32,5 @@ public class Deserialization {
 	}
 	
 	
-	private static class SomeHostGroup extends AbstractGroup {
-
-		public SomeHostGroup(String groupId) {
-			super(groupId);
-			addParam("pi", "3.14");
-		}
-		
-	}
 
 }
