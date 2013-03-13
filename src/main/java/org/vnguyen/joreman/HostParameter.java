@@ -4,9 +4,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 	
 public class HostParameter {
+	@JsonProperty boolean _destroy = false;
+	@JsonProperty String nested = "";
 	@JsonProperty String name;
 	@JsonProperty String value;
-	//@JsonProperty int reference_id;
+	@JsonProperty int reference_id=0;
 	
 	public HostParameter() {}
 	

@@ -1,10 +1,10 @@
 package org.vnguyen.joreman;
 
-import java.util.List;
+import java.util.Map;
 
 
 public interface HostGroup {
 	HostGroup addParam(String name, String value);
 	String groupId();
-	List<ParamWrapper> params();
+	Map<String, HostParameter> params();
 }

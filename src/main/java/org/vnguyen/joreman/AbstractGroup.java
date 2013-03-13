@@ -1,12 +1,12 @@
 package org.vnguyen.joreman;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 
 public abstract class AbstractGroup implements HostGroup {
 
-	protected List<ParamWrapper> params = new ArrayList<ParamWrapper>();
+	protected Map<String, HostParameter> params = new HashMap<String, HostParameter>();
 	protected String groupId;
 	
 	public AbstractGroup(String groupId) {
@@ -14,7 +14,8 @@ public abstract class AbstractGroup implements HostGroup {
 	}
 	
 	public HostGroup addParam(String name, String value) {
-		params.add(new ParamWrapper(new HostParameter(name, value)));
+		params.put(	Long.toString(System.currentTimeMillis()),
+					new HostParameter(name, value));
 		return this;
 	}
 
@@ -22,8 +23,7 @@ public abstract class AbstractGroup implements HostGroup {
 		return groupId;
 	}
 	
-	public List<ParamWrapper> params() {
+	public Map<String, HostParameter> params() {
 		return params;
-	}
-	
+	}	
 }

@@ -10,6 +10,10 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 
+/**
+ * Customize JSON processor
+ *
+ */
 
 @Provider
 @Produces("application/*+json")

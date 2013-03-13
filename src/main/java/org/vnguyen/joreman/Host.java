@@ -1,6 +1,9 @@
 package org.vnguyen.joreman;
 
-import java.util.List;
+import java.util.Map;
+
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
@@ -20,10 +23,26 @@ public class Host {
 	@JsonProperty("provision_method") 	String provisionMethod="build";
 	@JsonProperty("build") 				String buildFlag="1";
 	@JsonProperty("ptable_id") 			String ptableId="1";
+	@JsonProperty("medium_id") 			String mediumId="6";
+
 	
-	@JsonProperty("compute_attributes") public Compute_Attributes computeAttrs;
+	@JsonProperty("compute_attributes") 			public Compute_Attributes computeAttrs;
 	
-	@JsonProperty("host_parameters_attributes") 	public List<ParamWrapper> hostParams;
+	@JsonProperty("host_parameters_attributes") 	public Map<String, HostParameter> hostParams;
 
 
+	public Host withHostGroup (HostGroup app) {
+		hostParams = app.params();
+		hostGroup = app.groupId();
+		return this;
+	}
+	
+	@Override
+	public String toString() {
+		return  new ToStringBuilder(this)
+					.append(name)
+					.append(ip)
+					.append(hostGroup)
+					.toString();
+	}
 }

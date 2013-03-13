@@ -13,7 +13,7 @@
     "ptable_id" : "1",
     "compute_attributes" : {
       "cores" : "2",
-      "cluster" : "fcb97476-3365-11e2-94d7-5254009cc188",
+      "cluster" : "94f2cd44-7495-11e2-b2b3-5254009cc188",
       "memory" : "1073741824",
       "template" : "00000000-0000-0000-0000-000000000000",
       "start" : "0",
@@ -23,14 +23,14 @@
           "name" : "",
           "_delete" : ""
         },
-        "new_interfaces11" : {
+        "new_1363158080935" : {
           "network" : "00000000-0000-0000-0000-000000000009",
           "name" : "eth0",
           "_delete" : ""
         }
       },
       "volumes_attributes" : {
-        "new_volumes12" : {
+        "new_1363158080935" : {
           "storage_domain" : "7d2f995a-4d6a-4897-b6e8-14cf6a82dee3",
           "size_gb" : "8",
           "id" : "",
