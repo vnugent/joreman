@@ -1,6 +1,7 @@
 package org.vnguyen.joreman;
 
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
@@ -46,6 +47,10 @@ public interface ForemanAPI {
 	@GET
 	@Path("/api/status")
 	@Produces(MediaType.APPLICATION_JSON)
-	String status();	
+	String status();
+
+	@DELETE
+	@Path("/api/hosts/{hostName}")
+	void deleteHost(@PathParam("hostName") String hostName);	
 	
 }

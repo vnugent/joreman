@@ -1,0 +1,8 @@
+{
+"config":
+   {
+	"foreman_url":"http://foreman",
+ 	"foreman_user":"fred",
+ 	"foreman_password":"secret"
+   }
+}

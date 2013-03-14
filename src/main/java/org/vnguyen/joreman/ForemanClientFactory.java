@@ -15,10 +15,16 @@ public class ForemanClientFactory {
 		RegisterBuiltin.register(factory);		
 	}
 	
-	public static ForemanAPI create(String url, String username, String password) {
-		return ProxyFactory.create(	ForemanAPI.class, 
+	public static ForemanClient create(String url, String username, String password) {
+		return new ForemanClient(ProxyFactory.create(	ForemanAPI.class, 
 									url, 
 									HTTPHelper.basicHttpAuthExecutor(username, password) 
-								);	
+								));	
+	}
+	
+	public static ForemanClient create()  {
+		Config config = Config.load();
+		return create(config.foreman_url, config.foreman_user, config.foreman_password);
+		
 	}
 }

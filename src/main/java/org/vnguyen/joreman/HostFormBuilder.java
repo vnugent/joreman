@@ -1,16 +1,13 @@
 package org.vnguyen.joreman;
 
-import java.io.InputStream;
+import org.apache.commons.lang3.RandomStringUtils;
+import org.apache.commons.lang3.StringUtils;
 
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.ext.ContextResolver;
 
-import org.jboss.resteasy.spi.ResteasyProviderFactory;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class HostFormBuilder extends Host {
-	public static final String DEFAULT_SIMPLE_HOST_JSON = "/templates/simple.host.json";
+	public static final String DEFAULT_SIMPLE_HOST_JSON = "simple.host.json";
 
 	/**
 	 * Prepare a host form using data from a default json file
@@ -23,19 +20,12 @@ public class HostFormBuilder extends Host {
 	}
 	
 	public static Host newTemplate(String hostName, String jsonFile) throws Exception {
-		Host host = newTemplate(HostFormBuilder.class.getClass().getResourceAsStream(jsonFile));
+		Host host = JSONHelper.load(Host.class, jsonFile);
 		host.name = hostName;
 		return host;
 	}
 	
-	public static Host newTemplate(InputStream jsonIS) throws Exception {
-		ContextResolver<ObjectMapper> ctx = ResteasyProviderFactory.getInstance().getContextResolver(ObjectMapper.class, MediaType.APPLICATION_JSON_TYPE);
-		Host host = ctx.getContext(null).readValue(jsonIS, Host.class);
-		return host;
-	}
-	
-	public static String toJson(Host host) throws Exception {
-		ContextResolver<ObjectMapper> ctx = ResteasyProviderFactory.getInstance().getContextResolver(ObjectMapper.class, MediaType.APPLICATION_JSON_TYPE);
-		return ctx.getContext(null).writerWithDefaultPrettyPrinter().writeValueAsString(host);
+	public static String randomizeHostName(String prefix) {
+		return prefix + "-" + StringUtils.lowerCase(RandomStringUtils.randomAlphabetic(8));
 	}
 }
