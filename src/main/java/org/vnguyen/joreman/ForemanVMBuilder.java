@@ -1,15 +1,18 @@
 package org.vnguyen.joreman;
 
+import java.util.concurrent.ScheduledExecutorService;
+
 
 public class ForemanVMBuilder implements VMBuilder<ForemanVM> {
 
 	protected String vmName;
 	protected HostGroup hostGroup;
-	protected ForemanAPI foreman;
-	protected String jsonHostTemplate;	
+	protected ForemanClient foremanClient;
+	protected String jsonHostTemplate;
+	protected ScheduledExecutorService executor;	
 	
-	public ForemanVMBuilder(ForemanAPI foreman) {
-		this.foreman = foreman;
+	public ForemanVMBuilder(ForemanClient foreman) {
+		this.foremanClient = foreman;
 	}
 	
 	public ForemanVMBuilder withName(String vmName) {
@@ -38,6 +41,8 @@ public class ForemanVMBuilder implements VMBuilder<ForemanVM> {
 			newHost.withHostGroup(hostGroup);
 		}		
 		
-		return new ForemanVM(foreman.newHost(newHost));
+		ForemanVM newVM = new ForemanVM(foremanClient.api().newHost(newHost));
+		newVM.setForemanClient(foremanClient);
+		return newVM;
 	}
 }

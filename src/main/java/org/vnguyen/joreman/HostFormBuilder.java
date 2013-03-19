@@ -25,7 +25,23 @@ public class HostFormBuilder extends Host {
 		return host;
 	}
 	
+	/**
+	 * Append a random string to prefix
+	 * @param prefix
+	 * @return 
+	 */
 	public static String randomizeHostName(String prefix) {
-		return prefix + "-" + StringUtils.lowerCase(RandomStringUtils.randomAlphabetic(8));
+		return randomizeHostName(prefix, 5);
+	}
+	
+	/**
+	 * Append a random string to prefix
+	 * @param prefix
+	 * @param length length of random string
+	 * @return
+	 */
+	public static String randomizeHostName(String prefix, int length) {
+		return prefix + "-" + StringUtils.lowerCase(RandomStringUtils.randomAlphabetic(length));
+
 	}
 }

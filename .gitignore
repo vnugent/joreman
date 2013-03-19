@@ -2,7 +2,7 @@
 .classpath
 .settings/
 target/
-
+test-output/
 *.class
 
 # Package Files #

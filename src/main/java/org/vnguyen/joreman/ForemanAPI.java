@@ -2,6 +2,7 @@ package org.vnguyen.joreman;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
+import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
@@ -29,6 +30,13 @@ public interface ForemanAPI {
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
 	Host newHost(Host newHost);	
+	
+	@PUT
+	@Path("/api/hosts/{id}/power")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	HostPowerController.PowerStatus hostPower(@PathParam("id") String id, @FormParam("power_action") HostPowerController.POWER_ACTION action);	
+	
 
 
 	@PUT
@@ -37,6 +45,11 @@ public interface ForemanAPI {
 	@Consumes(MediaType.APPLICATION_JSON)
 	String powerOn(@PathParam("name") String name, HostPower2 power);	
 	
+	@GET
+	@Path("/api/hosts/{id}/status")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	String getHostStatus(@PathParam("id") String id);		
 	
 	@GET
 	@Path("/api/hostgroups/{id}")

@@ -19,6 +19,7 @@ import org.apache.http.conn.scheme.SchemeRegistry;
 import org.apache.http.conn.ssl.SSLSocketFactory;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.impl.client.DefaultTargetAuthenticationHandler;
+import org.apache.http.impl.conn.tsccm.ThreadSafeClientConnManager;
 import org.apache.http.message.BasicHeader;
 import org.jboss.resteasy.client.ClientExecutor;
 import org.jboss.resteasy.client.core.executors.ApacheHttpClient4Executor;
@@ -55,8 +56,9 @@ public class HTTPHelper {
 	}
 	
 	public static ClientExecutor basicHttpAuthExecutor(String username, String password) {
-		
-		DefaultHttpClient httpClient = wrapClient(new DefaultHttpClient());
+		ClientConnectionManager cm = new ThreadSafeClientConnManager();
+
+		DefaultHttpClient httpClient = wrapClient(new DefaultHttpClient(cm));
 		
 		// foreman doesn't return www auth header so I'm manually adding it to trick Resteasy
 		// there should be a better way

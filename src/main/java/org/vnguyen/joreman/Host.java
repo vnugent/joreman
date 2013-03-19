@@ -24,6 +24,7 @@ public class Host {
 	@JsonProperty("build") 				String buildFlag="1";
 	@JsonProperty("ptable_id") 			String ptableId="1";
 	@JsonProperty("medium_id") 			String mediumId="6";
+	@JsonProperty("image_id") 			String imageId;
 
 	
 	@JsonProperty("compute_attributes") 			public Compute_Attributes computeAttrs;

@@ -1,5 +1,9 @@
 package org.vnguyen.joreman;
 
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
+
 import org.jboss.resteasy.client.ProxyFactory;
 import org.jboss.resteasy.plugins.providers.RegisterBuiltin;
 import org.jboss.resteasy.spi.ResteasyProviderFactory;
@@ -15,16 +19,51 @@ public class ForemanClientFactory {
 		RegisterBuiltin.register(factory);		
 	}
 	
-	public static ForemanClient create(String url, String username, String password) {
-		return new ForemanClient(ProxyFactory.create(	ForemanAPI.class, 
-									url, 
-									HTTPHelper.basicHttpAuthExecutor(username, password) 
-								));	
+	protected ScheduledThreadPoolExecutor executor;
+	
+	public ForemanClientFactory() {
+		executor = (ScheduledThreadPoolExecutor) Executors.newScheduledThreadPool(5);
+	
+		registerShutdownHooks();
 	}
 	
-	public static ForemanClient create()  {
+	
+	public static ForemanAPI createAPI(Config config) {
+		return createAPI(config.foreman_url, config.foreman_user, config.foreman_password);
+	}
+	
+	public static ForemanAPI createAPI(String url, String username, String password) {
+		return ProxyFactory.create(	ForemanAPI.class, 
+									url, 
+									HTTPHelper.basicHttpAuthExecutor(username, password) 
+								);	
+	}
+	
+
+	
+	public ForemanClient createClient()  {
 		Config config = Config.load();
-		return create(config.foreman_url, config.foreman_user, config.foreman_password);
-		
+		return createClient(config);
+	}
+	
+	public ForemanClient createClient(Config config) {
+		ForemanClient client = new ForemanClient(createAPI(config));
+		client.setExecutor(executor);
+		return client;
+	}
+	
+	private void registerShutdownHooks() {
+		Runtime runtime = Runtime.getRuntime();
+		runtime.addShutdownHook(new Thread() {
+
+			public void run() {
+				executor.shutdown();
+				try {
+					executor.awaitTermination(2, TimeUnit.MINUTES);
+				} catch (InterruptedException e) {
+					Thread.currentThread().interrupt();
+				}
+			}
+		});
 	}
 }

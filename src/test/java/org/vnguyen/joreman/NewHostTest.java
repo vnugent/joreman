@@ -9,7 +9,7 @@ import org.testng.annotations.AfterTest;
 import org.testng.annotations.Test;
 
 public class NewHostTest {
-	private ForemanClient foreman = ForemanClientFactory.create();
+	private ForemanClient foreman = new ForemanClientFactory().createClient();
 	private Set<ForemanVM> vms = new HashSet<ForemanVM>();
 	private static final String hostname = "jman-" + StringUtils.lowerCase(RandomStringUtils.randomAlphabetic(8));
 	
@@ -19,9 +19,13 @@ public class NewHostTest {
 		ForemanVM vm = foreman.newHost()
 				.withName(hostname)
 				.build();
+
+		vm.power().on();
 		
+		HostPowerController.PowerStatus status = vm.power().status();
+		System.out.println(status);
 		vms.add(vm);
-		Thread.sleep(8000);
+		
 	}
 	
 	@AfterTest
