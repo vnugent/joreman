@@ -45,6 +45,7 @@ public class ForemanVM implements VM {
 		return new HashCodeBuilder(17, 37).
 			       		append(name()).
 			       		append(ip()).
+			       		append(host()).
 			       		toHashCode();
 		
 	}

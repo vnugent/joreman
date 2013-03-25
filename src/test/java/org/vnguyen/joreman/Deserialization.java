@@ -18,7 +18,7 @@ public class Deserialization {
 	
 	@Test
 	public void toJson() throws Exception {
-		Host host = HostFormBuilder.newTemplate("foos").withHostGroup(new ExampleHostGroup("gotcha"));
+		Host host = HostFormBuilder.newTemplate("foos").withHostGroup(new ExampleHostGroup());
 		
 		System.out.println(JSONHelper.toJson(host));
 	}
