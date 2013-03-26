@@ -37,14 +37,6 @@ public interface ForemanAPI {
 	@Consumes(MediaType.APPLICATION_JSON)
 	HostPowerController.PowerStatus hostPower(@PathParam("id") String id, @FormParam("power_action") HostPowerController.POWER_ACTION action);	
 	
-
-
-	@PUT
-	@Path("/api/hosts/{name}")
-	@Produces(MediaType.APPLICATION_JSON)
-	@Consumes(MediaType.APPLICATION_JSON)
-	String powerOn(@PathParam("name") String name, HostPower2 power);	
-	
 	@GET
 	@Path("/api/hosts/{id}/status")
 	@Produces(MediaType.APPLICATION_JSON)
