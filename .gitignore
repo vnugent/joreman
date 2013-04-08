@@ -1,9 +1,13 @@
 .project
 .classpath
+.pydevproject
 .settings/
+.gradle/
 target/
 test-output/
 *.class
+build/
+bin/
 
 # Package Files #
 *.jar
