@@ -4,8 +4,8 @@ apply plugin: 'groovy'
 apply plugin: 'maven'
 
 allprojects {
-   sourceCompatibility = 1.7
-   targetCompatibility = 1.7
+   sourceCompatibility = 1.6
+   targetCompatibility = 1.6
    
    sourceSets {
        main {
@@ -79,17 +79,18 @@ repositories {
 }
 
 dependencies {
-    def resteasyVersion = '2.3.4.Final'
+    def resteasyVersion = '3.0.6.Final'
     def httpBuilderVersion = '0.5.2'
-    def slf4jVersion = '1.6.6'
+    def slf4jVersion = '1.7.5'
     if ( System.properties['httpbuilder.version'] ) {
         httpBuilderVersion = System.properties['httpbuilder.version']
     }
 
-    compile "org.jboss.resteasy:resteasy-jaxrs:${resteasyVersion}",
+    compile "org.jboss.resteasy:resteasy-client:${resteasyVersion}",
+            "org.jboss.resteasy:resteasy-jackson2-provider:${resteasyVersion}",
             'org.testng:testng:6.8',
+            "org.slf4j:slf4j-api:${slf4jVersion}",
             'velocity:velocity-dep:1.4',
-            'com.fasterxml.jackson.jaxrs:jackson-jaxrs-json-provider:2.1.4',
             'org.apache.commons:commons-lang3:3.0'
     groovy 'org.codehaus.groovy:groovy:1.8.6'
     testng 'org.testng:testng:6.8'

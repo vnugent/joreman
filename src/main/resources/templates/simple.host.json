@@ -12,37 +12,37 @@
     "build" : "1",
     "ptable_id" : "1",
     "compute_attributes" : {
-      "cores" : "2",
-      "cluster" : "94f2cd44-7495-11e2-b2b3-5254009cc188",
-      "memory" : "1073741824",
+      "cores" : "1",
+      "cluster" : "fcb97476-3365-11e2-94d7-5254009cc188",
+      "memory" : "2147483648",
       "template" : "00000000-0000-0000-0000-000000000000",
-      "start" : "0",
+      "start" : "1",
       "interfaces_attributes" : {
         "new_interfaces" : {
           "network" : "00000000-0000-0000-0000-000000000009",
           "name" : "",
           "_delete" : ""
         },
-        "new_1363158080935" : {
+        "new_1363158080936" : {
           "network" : "00000000-0000-0000-0000-000000000009",
           "name" : "eth0",
           "_delete" : ""
         }
       },
       "volumes_attributes" : {
-        "new_1363158080935" : {
-          "storage_domain" : "7d2f995a-4d6a-4897-b6e8-14cf6a82dee3",
-          "size_gb" : "8",
-          "id" : "",
-          "_delete" : ""
-        },
         "new_volumes" : {
-          "storage_domain" : "7d2f995a-4d6a-4897-b6e8-14cf6a82dee3",
-          "size_gb" : "",
-          "id" : "",
-          "_delete" : ""
+            "size_gb" : "", 
+            "storage_domain" : "05cd6fd4-de9a-4e9c-9a92-925b3e263b33", 
+            "_delete" : "", 
+            "id" : ""
+            }, 
+        "new_1378823746971" : {
+            "size_gb" : "10", 
+            "storage_domain" : "b250d85c-2837-4efa-8c94-0f7c262418cc", 
+            "_delete" : "", 
+            "id" : ""
+            }
         }
-      }
     }
   }
 }

@@ -4,7 +4,7 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
-public class Deserialization {
+public class DeserializationTest {
 
 	@BeforeTest
 	public void setup () throws ClassNotFoundException {
@@ -20,7 +20,7 @@ public class Deserialization {
 	public void toJson() throws Exception {
 		Host host = HostFormBuilder.newTemplate("foos").withHostGroup(new ExampleHostGroup());
 		
-		System.out.println(JSONHelper.toJson(host));
+		System.out.println("toJson test: "+ JSONHelper.toJson(host));
 	}
 	
 	
