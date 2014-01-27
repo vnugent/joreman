@@ -1,9 +1,13 @@
 package org.vnguyen.joreman;
 
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.ScheduledExecutorService;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.vnguyen.joreman.Compute_Attributes.Volumes_Attributes;
 
 
 public class ForemanVMBuilder implements VMBuilder<ForemanVM> {
@@ -11,6 +15,11 @@ public class ForemanVMBuilder implements VMBuilder<ForemanVM> {
 	
 	protected String vmName;
 	protected HostGroup hostGroup;
+	protected int memorySizeMB = -1;
+	protected int diskSizeGB = -1;
+	protected String storageId = null;
+	protected int numberOfCpuCores = -1;
+	protected String clusterId = null;
 	protected ForemanClient foremanClient;
 	protected String jsonHostTemplate;
 	protected ScheduledExecutorService executor;	
@@ -37,6 +46,32 @@ public class ForemanVMBuilder implements VMBuilder<ForemanVM> {
 		return this;
 	}
 	
+	public ForemanVMBuilder withMemorySize(int sizeMB){
+		this.memorySizeMB = sizeMB;
+		return this;
+	}
+	
+	/**
+	 * Following disc will be used for this host. Other discs from used JSON template will be ignored.
+	 * @param storageId
+	 * @param sizeGB
+	 * @return
+	 */
+	public ForemanVMBuilder withDisk(String storageId, int sizeGB){
+		this.diskSizeGB = sizeGB;
+		this.storageId = storageId;
+		return this;
+	}
+	
+	public ForemanVMBuilder withCPUCores(int numberOfCores){
+		this.numberOfCpuCores = numberOfCores;
+		return this;
+	}
+	
+	public ForemanVMBuilder withinCluster(String clusterId){
+		this.clusterId = clusterId;
+		return this;
+	}
 	public ForemanVM build() throws Exception {
 		if (vmName==null) {
 			throw new RuntimeException("must set vm name");
@@ -44,9 +79,28 @@ public class ForemanVMBuilder implements VMBuilder<ForemanVM> {
 		
 		Host newHost = jsonHostTemplate == null ? HostFormBuilder.newTemplate(vmName) : HostFormBuilder.newTemplate(vmName, jsonHostTemplate);
 		
+		
 		if (hostGroup!=null) {
 			newHost.withHostGroup(hostGroup);
-		}		
+		}	
+		
+		if(memorySizeMB > 0){
+			newHost.computeAttrs.memory = String.valueOf((long)memorySizeMB*1024*1024);
+		}
+		if(clusterId != null){
+			newHost.computeAttrs.cluster = clusterId;
+		}
+		if(numberOfCpuCores > 0){
+			newHost.computeAttrs.cores = String.valueOf(numberOfCpuCores);
+		}
+		
+		if(diskSizeGB > 0){
+			Date now = new Date();
+			Map<String, Volumes_Attributes> volumes = new HashMap<String, Volumes_Attributes>();
+			
+			volumes.put("new_"+now.getTime(), new Volumes_Attributes(storageId, String.valueOf(diskSizeGB), "", ""));
+			newHost.computeAttrs.volumes_attributes = volumes;
+		}
 		
 		logger.info("Creating a new VM with following parameters - name: {}, host group id: {}, ",newHost.name, newHost.hostGroup);
 		logger.debug("Sending following json to the foreman: {}",JSONHelper.toJson(newHost));
@@ -54,4 +108,6 @@ public class ForemanVMBuilder implements VMBuilder<ForemanVM> {
 		newVM.setForemanClient(foremanClient);
 		return newVM;
 	}
+	
+	
 }
