@@ -14,7 +14,7 @@ public class JSONHelper {
 	
 	public static <T> T load(Class<T> clz, String jsonFile) {
 		ContextResolver<ObjectMapper> ctx = ResteasyProviderFactory.getInstance().getContextResolver(ObjectMapper.class, MediaType.APPLICATION_JSON_TYPE);
-		InputStream is = JSONHelper.class.getResourceAsStream("/templates/"+jsonFile);
+		InputStream is = JSONHelper.class.getResourceAsStream(jsonFile);
 
 		try {
 			if (is != null) {
