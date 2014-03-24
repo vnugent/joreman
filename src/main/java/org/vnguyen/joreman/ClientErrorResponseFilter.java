@@ -23,7 +23,6 @@ import org.slf4j.LoggerFactory;
 public class ClientErrorResponseFilter implements ClientResponseFilter {
 	final static Logger logger = LoggerFactory.getLogger(ClientErrorResponseFilter.class);
 
-	@Override
 	public void filter(ClientRequestContext requestContext,
 			ClientResponseContext responseContext) throws IOException {
 		if(responseContext.getStatus() != 200){

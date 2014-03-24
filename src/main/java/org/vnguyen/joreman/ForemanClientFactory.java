@@ -47,14 +47,19 @@ public class ForemanClientFactory {
 	}
 	
 	
-	public static ForemanAPI createAPI(Config config) throws MalformedURLException {
+	public static ForemanAPI createAPI(Config config) {
 		return createAPI(config.foreman_url, config.foreman_user, config.foreman_password);
 	}
 	
-	public static ForemanAPI createAPI(String url, String userName, String password) throws MalformedURLException {
+	public static ForemanAPI createAPI(String url, String userName, String password) {
 		
 		// parse given url and determine which port should be used
-		URL parsedUrl = new URL(url);
+		URL parsedUrl;
+		try {
+			parsedUrl = new URL(url);
+		} catch (MalformedURLException e) {
+			throw new RuntimeException(e);
+		}
 		int port = parsedUrl.getPort();
 		if(port == -1){
 			logger.debug("Port was omitted, using a default port for given protocol");
@@ -97,12 +102,12 @@ public class ForemanClientFactory {
 	
 
 	
-	public ForemanClient createClient() throws MalformedURLException  {
+	public ForemanClient createClient() {
 		Config config = Config.load();
 		return createClient(config);
 	}
 	
-	public ForemanClient createClient(Config config) throws MalformedURLException {
+	public ForemanClient createClient(Config config) {
 		logger.info("Creating a new foreman client with following configuration - url: {}, user: {}",
 				config.foreman_url,config.foreman_user);
 		ForemanClient client = new ForemanClient(createAPI(config));

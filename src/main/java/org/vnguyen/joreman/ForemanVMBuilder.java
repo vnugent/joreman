@@ -77,7 +77,7 @@ public class ForemanVMBuilder implements VMBuilder<ForemanVM> {
 			throw new RuntimeException("must set vm name");
 		}
 		
-		Host newHost = jsonHostTemplate == null ? HostFormBuilder.newTemplate(vmName) : HostFormBuilder.newTemplate(vmName, "templates/"+ jsonHostTemplate);
+		Host newHost = jsonHostTemplate == null ? HostFormBuilder.newTemplate(vmName) : HostFormBuilder.newTemplate(vmName, "/templates/"+ jsonHostTemplate);
 		
 		
 		if (hostGroup!=null) {
