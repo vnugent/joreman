@@ -9,13 +9,14 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 
 public interface ForemanAPI {
 	@GET
 	@Path("/api/hosts/{id}")
-	@Produces("text/plain")	
+	@Produces(MediaType.APPLICATION_JSON)	
 	Host getHost(@PathParam("id") String id);
 	
 
@@ -45,17 +46,31 @@ public interface ForemanAPI {
 	
 	@GET
 	@Path("/api/hostgroups/{id}")
-	@Produces("text/plain")	
-	String getHostGroups(@PathParam("id") String id);	
+	@Produces(MediaType.APPLICATION_JSON)
+	HG getHostGroup(@PathParam("id") String id);	
 	
+	@GET
+	@Path("/api/hostgroups")
+	@Produces(MediaType.APPLICATION_JSON)
+	String getHostGroups(@QueryParam("search") String name, @QueryParam("order") String order, @QueryParam("page") String page, @QueryParam("per_page") String perPage);		
 	
 	@GET
 	@Path("/api/status")
 	@Produces(MediaType.APPLICATION_JSON)
 	String status();
 
-	@DELETE
+/*	@DELETE
 	@Path("/api/hosts/{hostName}")
-	void deleteHost(@PathParam("hostName") String hostName);	
+	void deleteHost(@PathParam("hostName") String hostName);*/
+	
+	@DELETE
+	@Path("/api/hosts/{id}")
+	@Produces(MediaType.APPLICATION_JSON)
+	Host deleteHost(@PathParam("id") String hostId);
+	
+	@GET
+	@Path("/api/hosts")
+	@Produces(MediaType.APPLICATION_JSON)
+	String getHosts(@QueryParam("search") String name, @QueryParam("order") String order, @QueryParam("page") String page, @QueryParam("per_page") String perPage);	
 	
 }
