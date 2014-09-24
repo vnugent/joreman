@@ -25,6 +25,7 @@ public class Host {
 	@JsonProperty("ptable_id") 			String ptableId="1";
 	@JsonProperty("medium_id") 			String mediumId="6";
 	@JsonProperty("image_id") 			String imageId;
+	@JsonProperty("is_owned_by")        public String isOwnedBy="18-Users";
 	
 	@JsonProperty("mac")				public String mac;
 	

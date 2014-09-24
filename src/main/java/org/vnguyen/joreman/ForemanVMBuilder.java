@@ -22,7 +22,8 @@ public class ForemanVMBuilder implements VMBuilder<ForemanVM> {
 	protected String clusterId = null;
 	protected ForemanClient foremanClient;
 	protected String jsonHostTemplate;
-	protected ScheduledExecutorService executor;	
+	protected ScheduledExecutorService executor;
+	protected String ownedBy = null;
 	
 	public ForemanVMBuilder(ForemanClient foreman) {
 		this.foremanClient = foreman;
@@ -72,6 +73,10 @@ public class ForemanVMBuilder implements VMBuilder<ForemanVM> {
 		this.clusterId = clusterId;
 		return this;
 	}
+	public ForemanVMBuilder ownedBy(String owner){
+	    this.ownedBy = owner;
+	    return this;
+	}
 	public ForemanVM build() throws Exception {
 		if (vmName==null) {
 			throw new RuntimeException("must set vm name");
@@ -100,6 +105,9 @@ public class ForemanVMBuilder implements VMBuilder<ForemanVM> {
 			
 			volumes.put("new_"+now.getTime(), new Volumes_Attributes(storageId, String.valueOf(diskSizeGB), "", ""));
 			newHost.computeAttrs.volumes_attributes = volumes;
+		}
+		if(ownedBy != null){
+		    newHost.isOwnedBy = ownedBy;
 		}
 		
 		logger.info("Creating a new VM with following parameters - name: {}, host group id: {}, ",newHost.name, newHost.hostGroup);
