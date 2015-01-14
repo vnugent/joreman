@@ -2,9 +2,6 @@ package org.vnguyen.joreman;
 
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
 
 import org.apache.http.HttpHost;
 import org.apache.http.auth.AuthScheme;
@@ -36,14 +33,6 @@ public class ForemanClientFactory {
 		factory.registerProvider(JacksonJaxbJsonProvider.class);
 		factory.registerProvider(JacksonContextResolver.class);
 		RegisterBuiltin.register(factory);		
-	}
-	
-	protected ScheduledThreadPoolExecutor executor;
-	
-	public ForemanClientFactory() {
-		executor = (ScheduledThreadPoolExecutor) Executors.newScheduledThreadPool(5);
-	
-		registerShutdownHooks();
 	}
 	
 	
@@ -111,22 +100,6 @@ public class ForemanClientFactory {
 		logger.info("Creating a new foreman client with following configuration - url: {}, user: {}",
 				config.foreman_url,config.foreman_user);
 		ForemanClient client = new ForemanClient(createAPI(config));
-		client.setExecutor(executor);
 		return client;
-	}
-	
-	private void registerShutdownHooks() {
-		Runtime runtime = Runtime.getRuntime();
-		runtime.addShutdownHook(new Thread() {
-
-			public void run() {
-				executor.shutdown();
-				try {
-					executor.awaitTermination(2, TimeUnit.MINUTES);
-				} catch (InterruptedException e) {
-					Thread.currentThread().interrupt();
-				}
-			}
-		});
 	}
 }

@@ -1,7 +1,5 @@
 package org.vnguyen.joreman;
 
-import java.util.concurrent.TimeUnit;
-
 import com.fasterxml.jackson.annotation.JsonRootName;
 
 public class HostPowerController {
@@ -36,17 +34,11 @@ public class HostPowerController {
 	}
 	
 	/**
-	 * Power On. Due to a bug in Foreman this action is delayed for a few seconds 
-	 * or we will get Disk locked error
+	 * Power On
 	 * @return
 	 */
 	public ForemanVM on() {
-		Runnable delayedPowerTask = new Runnable() {
-			public void run() {
-				power(POWER_ACTION.ON);
-			}
-		};
-		vm.foreman.executor.schedule(delayedPowerTask, 10, TimeUnit.SECONDS);		
+		power(POWER_ACTION.ON);
 		return vm;
 	}
 	
