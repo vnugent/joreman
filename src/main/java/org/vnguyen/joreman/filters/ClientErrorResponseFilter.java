@@ -1,4 +1,4 @@
-package org.vnguyen.joreman;
+package org.vnguyen.joreman.filters;
 
 import java.io.BufferedReader;
 import java.io.IOException;

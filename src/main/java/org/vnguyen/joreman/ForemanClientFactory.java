@@ -22,6 +22,8 @@ import org.jboss.resteasy.plugins.providers.RegisterBuiltin;
 import org.jboss.resteasy.spi.ResteasyProviderFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.vnguyen.joreman.filters.AddVersionHeaderRequestFilter;
+import org.vnguyen.joreman.filters.ClientErrorResponseFilter;
 
 import com.fasterxml.jackson.jaxrs.json.JacksonJaxbJsonProvider;
 
@@ -34,7 +36,6 @@ public class ForemanClientFactory {
 		factory.registerProvider(JacksonContextResolver.class);
 		RegisterBuiltin.register(factory);		
 	}
-	
 	
 	public static ForemanAPI createAPI(Config config) {
 		return createAPI(config.foreman_url, config.foreman_user, config.foreman_password);
@@ -84,6 +85,7 @@ public class ForemanClientFactory {
 		client.register(ClientErrorResponseFilter.class);
 		client.register(JacksonJaxbJsonProvider.class);
 		client.register(JacksonContextResolver.class);
+		client.register(AddVersionHeaderRequestFilter.class);
         ResteasyWebTarget target = client.target(url);
 
         return target.proxy(ForemanAPI.class);
@@ -91,12 +93,12 @@ public class ForemanClientFactory {
 	
 
 	
-	public ForemanClient createClient() {
+	public static ForemanClient createClient() {
 		Config config = Config.load();
 		return createClient(config);
 	}
 	
-	public ForemanClient createClient(Config config) {
+	public static ForemanClient createClient(Config config) {
 		logger.info("Creating a new foreman client with following configuration - url: {}, user: {}",
 				config.foreman_url,config.foreman_user);
 		ForemanClient client = new ForemanClient(createAPI(config));
