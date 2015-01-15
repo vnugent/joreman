@@ -1,4 +1,5 @@
-package org.vnguyen.joreman;
+package org.vnguyen.joreman.hostgroup;
+
 
 /**
  * A simple host group based on Foreman group id

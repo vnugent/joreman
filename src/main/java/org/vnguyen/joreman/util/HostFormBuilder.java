@@ -1,13 +1,14 @@
-package org.vnguyen.joreman;
+package org.vnguyen.joreman.util;
 
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.vnguyen.joreman.model.Host;
 
 
 
 
-public class HostFormBuilder extends Host {
-	public static final String DEFAULT_SIMPLE_HOST_JSON = "simple.host.json";
+public class HostFormBuilder {
+	public static final String DEFAULT_SIMPLE_HOST_JSON = "/templates/simple.host.json";
 
 	/**
 	 * Prepare a host form using data from a default json file

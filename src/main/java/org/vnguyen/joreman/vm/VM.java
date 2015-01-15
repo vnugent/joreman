@@ -1,4 +1,4 @@
-package org.vnguyen.joreman;
+package org.vnguyen.joreman.vm;
 
 
 public interface VM {

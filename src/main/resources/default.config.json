@@ -1,8 +1,5 @@
 {
-"config":
-   {
 	"foreman_url":"http://foreman.jonqe.lab.eng.bos.redhat.com",
  	"foreman_user":"foremanrestapi",
  	"foreman_password":"redhat"
-   }
 }

@@ -1,6 +1,8 @@
-package org.vnguyen.joreman;
+package org.vnguyen.joreman.hostgroup;
 
 import java.util.Map;
+
+import org.vnguyen.joreman.model.HostParameter;
 
 
 public interface HostGroup {

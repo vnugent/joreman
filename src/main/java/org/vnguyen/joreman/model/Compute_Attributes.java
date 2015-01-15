@@ -1,18 +1,24 @@
-package org.vnguyen.joreman;
+package org.vnguyen.joreman.model;
 
 import java.util.Map;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Compute_Attributes {
-	@JsonProperty String cores="1";
-	@JsonProperty String cluster;
-	@JsonProperty String memory;
+	@JsonProperty
+    public String cores="1";
+	@JsonProperty
+    public String cluster;
+	@JsonProperty
+    public String memory;
 	@JsonProperty String template;
 	@JsonProperty String start;
+	@JsonProperty("image_id") public String imageId;
 	
-	@JsonProperty Map<String, Interfaces_Attributes> interfaces_attributes;
-	@JsonProperty Map<String, Volumes_Attributes> volumes_attributes;
+	@JsonProperty
+    public Map<String, Interfaces_Attributes> interfaces_attributes;
+	@JsonProperty
+    public Map<String, Volumes_Attributes> volumes_attributes;
 	
 	public static class Interfaces_Attributes {
 		public String network;

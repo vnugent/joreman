@@ -1,4 +1,4 @@
-package org.vnguyen.joreman;
+package org.vnguyen.joreman.util;
 
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;

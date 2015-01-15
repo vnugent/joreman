@@ -1,7 +1,9 @@
-package org.vnguyen.joreman;
+package org.vnguyen.joreman.hostgroup;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import org.vnguyen.joreman.model.HostParameter;
 
 
 public abstract class AbstractGroup implements HostGroup {

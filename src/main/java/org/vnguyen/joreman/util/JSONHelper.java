@@ -1,4 +1,4 @@
-package org.vnguyen.joreman;
+package org.vnguyen.joreman.util;
 
 import java.io.File;
 import java.io.InputStream;
@@ -27,7 +27,7 @@ public class JSONHelper {
 		}
 	}
 
-	public static String toJson(Host host) throws Exception {
+	public static String toJson(Object host) throws Exception {
 		ContextResolver<ObjectMapper> ctx = ResteasyProviderFactory.getInstance().getContextResolver(ObjectMapper.class, MediaType.APPLICATION_JSON_TYPE);
 		return ctx.getContext(null).writerWithDefaultPrettyPrinter().writeValueAsString(host);
 	}

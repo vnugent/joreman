@@ -1,4 +1,4 @@
-package org.vnguyen.joreman;
+package org.vnguyen.joreman.vm;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -7,7 +7,14 @@ import java.util.concurrent.ScheduledExecutorService;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.vnguyen.joreman.Compute_Attributes.Volumes_Attributes;
+import org.vnguyen.joreman.client.ForemanClient;
+import org.vnguyen.joreman.hostgroup.HostGroup;
+import org.vnguyen.joreman.model.Compute_Attributes.Volumes_Attributes;
+import org.vnguyen.joreman.model.Host;
+import org.vnguyen.joreman.model.HostWrapper;
+import org.vnguyen.joreman.model.Image;
+import org.vnguyen.joreman.util.HostFormBuilder;
+import org.vnguyen.joreman.util.JSONHelper;
 
 
 public class ForemanVMBuilder implements VMBuilder<ForemanVM> {
@@ -24,6 +31,8 @@ public class ForemanVMBuilder implements VMBuilder<ForemanVM> {
 	protected String jsonHostTemplate;
 	protected ScheduledExecutorService executor;
 	protected String ownedBy = null;
+	protected String imageId = null;
+	protected int computeResId = -1;
 	
 	public ForemanVMBuilder(ForemanClient foreman) {
 		this.foremanClient = foreman;
@@ -34,6 +43,12 @@ public class ForemanVMBuilder implements VMBuilder<ForemanVM> {
 		this.vmName = vmName;
 		return this;
 	}
+	public ForemanVMBuilder usingImage(String imageId, int computeResId) {
+        logger.debug("Using following image id for this VM to '{}'",imageId);
+        this.imageId = imageId;
+        this.computeResId = computeResId;
+        return this;
+    }
 	
 	public ForemanVMBuilder withHostGroup(HostGroup hg) {
 		logger.debug("Setting a host group id for this VM to '{}'",hg.groupId());
@@ -99,6 +114,8 @@ public class ForemanVMBuilder implements VMBuilder<ForemanVM> {
 			newHost.computeAttrs.cores = String.valueOf(numberOfCpuCores);
 		}
 		
+		setImage(newHost, this.imageId, this.computeResId);
+		
 		if(diskSizeGB > 0){
 			Date now = new Date();
 			Map<String, Volumes_Attributes> volumes = new HashMap<String, Volumes_Attributes>();
@@ -111,11 +128,25 @@ public class ForemanVMBuilder implements VMBuilder<ForemanVM> {
 		}
 		
 		logger.info("Creating a new VM with following parameters - name: {}, host group id: {}, ",newHost.name, newHost.hostGroup);
-		logger.debug("Sending following json to the foreman: {}",JSONHelper.toJson(newHost));
-		ForemanVM newVM = new ForemanVM(foremanClient.api().newHost(newHost));
+		
+		// foreman expects wrapped host
+		HostWrapper hostWrapped = new HostWrapper();
+		hostWrapped.setHost(newHost);
+		logger.debug("Sending following json to the foreman: {}",JSONHelper.toJson(hostWrapped));
+		
+		ForemanVM newVM = new ForemanVM(foremanClient.api().newHost(hostWrapped));
 		newVM.setForemanClient(foremanClient);
 		return newVM;
 	}
-	
-	
+	private void setImage(Host host, String imageId, int computeResId){
+	    if (imageId != null && computeResId > 0){
+	        Image img = foremanClient.api().getImage(Integer.toString(computeResId),imageId);
+	        host.imageId = imageId;
+	        host.provisionMethod = "image";
+	        host.os = img.operatingSystemId;
+	        host.arch = img.archId;
+	        host.computeAttrs.imageId = img.uuid;
+	        
+	    }
+	}
 }

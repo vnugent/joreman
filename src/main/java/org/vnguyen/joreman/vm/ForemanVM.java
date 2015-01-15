@@ -1,13 +1,16 @@
-package org.vnguyen.joreman;
+package org.vnguyen.joreman.vm;
 
 import org.apache.commons.lang3.builder.HashCodeBuilder;
-import org.vnguyen.joreman.HostPowerController.PowerStatus;
+import org.vnguyen.joreman.client.ForemanClient;
+import org.vnguyen.joreman.model.Host;
+import org.vnguyen.joreman.model.HostPowerController;
+import org.vnguyen.joreman.model.HostPowerController.PowerStatus;
 
 
 
 public class ForemanVM implements VM {
 	protected Host host;
-	protected ForemanClient foreman;
+	private ForemanClient foreman;
 	protected PowerStatus powerStatus;
 	
 	public ForemanVM(Host host) {
@@ -51,10 +54,15 @@ public class ForemanVM implements VM {
 	}
 
 	public void setForemanClient(ForemanClient foremanClient) {
-		this.foreman = foremanClient;
+		foreman = foremanClient;
 	}
 	
 	public void setPowerStatus(PowerStatus status) {
 		this.powerStatus = status;
 	}
+
+
+    public ForemanClient getForeman() {
+        return foreman;
+    }
 }

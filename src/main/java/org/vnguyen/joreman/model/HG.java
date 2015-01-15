@@ -1,11 +1,9 @@
-package org.vnguyen.joreman;
+package org.vnguyen.joreman.model;
 
 import java.util.Map;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonRootName;
 
-@JsonRootName("hostgroup")
 public class HG {
 	@JsonProperty("name") 				public String name;
 	@JsonProperty("id") 				public Integer id;

@@ -4,12 +4,14 @@ import junit.framework.Assert;
 
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
+import org.vnguyen.joreman.hostgroup.AbstractGroup;
+import org.vnguyen.joreman.model.Host;
 
 public class HostSerializationTest {
 	
 	@BeforeTest
 	public void setup () throws ClassNotFoundException {
-		Class.forName("org.vnguyen.joreman.ForemanClientFactory");
+		Class.forName("org.vnguyen.joreman.client.ForemanClientFactory");
 	}
 	
 	

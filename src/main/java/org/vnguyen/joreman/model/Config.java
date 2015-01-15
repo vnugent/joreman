@@ -1,13 +1,13 @@
-package org.vnguyen.joreman;
+package org.vnguyen.joreman.model;
+
+import org.vnguyen.joreman.util.JSONHelper;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonRootName;
 
-@JsonRootName(value = "config")
 public class Config {
-	@JsonProperty String foreman_url;
-	@JsonProperty String foreman_user;
-	@JsonProperty String foreman_password;
+	@JsonProperty public String foreman_url;
+	@JsonProperty public String foreman_user;
+	@JsonProperty public String foreman_password;
 	
 	public Config() {}
 	

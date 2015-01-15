@@ -1,4 +1,4 @@
-package org.vnguyen.joreman;
+package org.vnguyen.joreman.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 

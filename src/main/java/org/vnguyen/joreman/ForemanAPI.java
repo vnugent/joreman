@@ -2,7 +2,6 @@ package org.vnguyen.joreman;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
-import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
@@ -12,12 +11,23 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
+import org.vnguyen.joreman.model.HG;
+import org.vnguyen.joreman.model.Host;
+import org.vnguyen.joreman.model.HostPowerController;
+import org.vnguyen.joreman.model.HostWrapper;
+import org.vnguyen.joreman.model.Image;
+
 
 public interface ForemanAPI {
 	@GET
-	@Path("/api/hosts/{id}")
+	@Path("/api/compute_resources/{compute_res_id}/images/{image_id}")
 	@Produces(MediaType.APPLICATION_JSON)	
-	Host getHost(@PathParam("id") String id);
+	Image getImage(@PathParam("compute_res_id") String computeResourceId, @PathParam("image_id") String imageId);
+	
+	@GET
+    @Path("/api/hosts/{id}")
+    @Produces(MediaType.APPLICATION_JSON)   
+    Host getHost(@PathParam("id") String id);
 	
 
 	@GET
@@ -30,13 +40,13 @@ public interface ForemanAPI {
 	@Path("/api/hosts")
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
-	Host newHost(Host newHost);	
+	Host newHost(HostWrapper newHost);	
 	
 	@PUT
 	@Path("/api/hosts/{id}/power")
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
-	HostPowerController.PowerStatus hostPower(@PathParam("id") String id, @FormParam("power_action") HostPowerController.POWER_ACTION action);	
+	HostPowerController.PowerStatus hostPower(@PathParam("id") String id, HostPowerController.PowerAction actionCl);	
 	
 	@GET
 	@Path("/api/hosts/{id}/status")

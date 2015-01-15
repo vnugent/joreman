@@ -1,13 +1,13 @@
 {
-  "host" : {
     "name" : "simple-host1",
     "environment_id" : "1",
     "architecture_id" : "1",
     "operatingsystem_id" : "1",
     "domain_id" : "1",
+    "subnet_id" : "3",
     "puppet_proxy_id" : "1",
     "compute_resource_id" : "2",
-    "hostgroup_id" : "2",
+    "hostgroup_id" : "64",
     "provision_method" : "build",
     "build" : "1",
     "ptable_id" : "1",
@@ -33,5 +33,4 @@
             }
         }
     }
-  }
 }

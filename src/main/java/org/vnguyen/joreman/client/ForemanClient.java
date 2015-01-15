@@ -1,4 +1,8 @@
-package org.vnguyen.joreman;
+package org.vnguyen.joreman.client;
+
+import org.vnguyen.joreman.ForemanAPI;
+import org.vnguyen.joreman.vm.ForemanVM;
+import org.vnguyen.joreman.vm.ForemanVMBuilder;
 
 public class ForemanClient {
 

@@ -79,9 +79,9 @@ repositories {
 }
 
 dependencies {
-    def resteasyVersion = '3.0.6.Final'
+    def resteasyVersion = '3.0.9.Final'
     def httpBuilderVersion = '0.5.2'
-    def slf4jVersion = '1.7.5'
+    def slf4jVersion = '1.7.10'
     if ( System.properties['httpbuilder.version'] ) {
         httpBuilderVersion = System.properties['httpbuilder.version']
     }

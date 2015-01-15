@@ -1,4 +1,5 @@
-package org.vnguyen.joreman;
+package org.vnguyen.joreman.hostgroup;
+
 
 
 public class ExampleHostGroup extends AbstractGroup {

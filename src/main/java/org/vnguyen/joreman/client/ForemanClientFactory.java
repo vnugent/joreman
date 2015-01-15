@@ -1,4 +1,4 @@
-package org.vnguyen.joreman;
+package org.vnguyen.joreman.client;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -22,8 +22,12 @@ import org.jboss.resteasy.plugins.providers.RegisterBuiltin;
 import org.jboss.resteasy.spi.ResteasyProviderFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.vnguyen.joreman.ForemanAPI;
+import org.vnguyen.joreman.JacksonContextResolver;
 import org.vnguyen.joreman.filters.AddVersionHeaderRequestFilter;
 import org.vnguyen.joreman.filters.ClientErrorResponseFilter;
+import org.vnguyen.joreman.model.Config;
+import org.vnguyen.joreman.util.HTTPHelper;
 
 import com.fasterxml.jackson.jaxrs.json.JacksonJaxbJsonProvider;
 
