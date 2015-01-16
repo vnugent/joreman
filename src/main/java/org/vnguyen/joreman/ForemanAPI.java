@@ -16,6 +16,7 @@ import org.vnguyen.joreman.model.Host;
 import org.vnguyen.joreman.model.HostPowerController;
 import org.vnguyen.joreman.model.HostWrapper;
 import org.vnguyen.joreman.model.Image;
+import org.vnguyen.joreman.model.Images;
 
 
 public interface ForemanAPI {
@@ -23,6 +24,11 @@ public interface ForemanAPI {
 	@Path("/api/compute_resources/{compute_res_id}/images/{image_id}")
 	@Produces(MediaType.APPLICATION_JSON)	
 	Image getImage(@PathParam("compute_res_id") String computeResourceId, @PathParam("image_id") String imageId);
+	
+	@GET
+    @Path("/api/compute_resources/{compute_res_id}/images")
+    @Produces(MediaType.APPLICATION_JSON)
+    Images getImages(@PathParam("compute_res_id") String computeResourceId, @QueryParam("search") String name, @QueryParam("order") String order, @QueryParam("page") String page, @QueryParam("per_page") String perPage);
 	
 	@GET
     @Path("/api/hosts/{id}")
