@@ -13,4 +13,9 @@ public class Image {
     public int archId;
     @JsonProperty
     public String uuid;
+    
+    public String toString(){
+        return "id: " +id+ ", name: " +name;
+        
+    }
 }

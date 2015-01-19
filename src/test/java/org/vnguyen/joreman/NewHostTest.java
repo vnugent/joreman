@@ -51,7 +51,7 @@ public class NewHostTest {
 	public void newImageBased() throws Exception{
 	    ForemanVM vm = foreman.newHost()
                 .withName(hostName2)
-                .usingImage("7", 2)
+                .usingImage(7, 2)
                 .build();
 	    vms.add(vm);
 	}

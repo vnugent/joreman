@@ -31,7 +31,7 @@ public class ForemanVMBuilder implements VMBuilder<ForemanVM> {
 	protected String jsonHostTemplate;
 	protected ScheduledExecutorService executor;
 	protected String ownedBy = null;
-	protected String imageId = null;
+	protected int imageId = -1;
 	protected int computeResId = -1;
 	
 	public ForemanVMBuilder(ForemanClient foreman) {
@@ -43,7 +43,7 @@ public class ForemanVMBuilder implements VMBuilder<ForemanVM> {
 		this.vmName = vmName;
 		return this;
 	}
-	public ForemanVMBuilder usingImage(String imageId, int computeResId) {
+	public ForemanVMBuilder usingImage(int imageId, int computeResId) {
         logger.debug("Using following image id for this VM to '{}'",imageId);
         this.imageId = imageId;
         this.computeResId = computeResId;
@@ -138,10 +138,10 @@ public class ForemanVMBuilder implements VMBuilder<ForemanVM> {
 		newVM.setForemanClient(foremanClient);
 		return newVM;
 	}
-	private void setImage(Host host, String imageId, int computeResId){
-	    if (imageId != null && computeResId > 0){
-	        Image img = foremanClient.api().getImage(Integer.toString(computeResId),imageId);
-	        host.imageId = imageId;
+	private void setImage(Host host, int imageId, int computeResId){
+	    if (imageId > 0 && computeResId > 0){
+	        Image img = foremanClient.api().getImage(Integer.toString(computeResId),Integer.toString(imageId));
+	        host.imageId = Integer.toString(imageId);
 	        host.provisionMethod = "image";
 	        host.os = img.operatingSystemId;
 	        host.arch = img.archId;
