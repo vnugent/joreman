@@ -13,6 +13,7 @@ import org.testng.annotations.Test;
 import org.vnguyen.joreman.client.ForemanClient;
 import org.vnguyen.joreman.client.ForemanClientFactory;
 import org.vnguyen.joreman.model.Host;
+import org.vnguyen.joreman.model.HostPowerController;
 import org.vnguyen.joreman.vm.ForemanVM;
 
 public class NewHostTest {

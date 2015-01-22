@@ -15,6 +15,8 @@ import org.vnguyen.joreman.model.HG;
 import org.vnguyen.joreman.model.Host;
 import org.vnguyen.joreman.model.HostPowerController;
 import org.vnguyen.joreman.model.HostWrapper;
+import org.vnguyen.joreman.model.Hostgroups;
+import org.vnguyen.joreman.model.Hosts;
 import org.vnguyen.joreman.model.Image;
 import org.vnguyen.joreman.model.Images;
 
@@ -48,6 +50,7 @@ public interface ForemanAPI {
 	@Consumes(MediaType.APPLICATION_JSON)
 	Host newHost(HostWrapper newHost);	
 	
+	// currently broken because of http://projects.theforeman.org/issues/8812
 	@PUT
 	@Path("/api/hosts/{id}/power")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -68,7 +71,7 @@ public interface ForemanAPI {
 	@GET
 	@Path("/api/hostgroups")
 	@Produces(MediaType.APPLICATION_JSON)
-	String getHostGroups(@QueryParam("search") String name, @QueryParam("order") String order, @QueryParam("page") String page, @QueryParam("per_page") String perPage);		
+	Hostgroups getHostGroups(@QueryParam("search") String name, @QueryParam("order") String order, @QueryParam("page") String page, @QueryParam("per_page") String perPage);		
 	
 	@GET
 	@Path("/api/status")
@@ -87,6 +90,6 @@ public interface ForemanAPI {
 	@GET
 	@Path("/api/hosts")
 	@Produces(MediaType.APPLICATION_JSON)
-	String getHosts(@QueryParam("search") String name, @QueryParam("order") String order, @QueryParam("page") String page, @QueryParam("per_page") String perPage);	
+	Hosts getHosts(@QueryParam("search") String name, @QueryParam("order") String order, @QueryParam("page") String page, @QueryParam("per_page") String perPage);	
 	
 }

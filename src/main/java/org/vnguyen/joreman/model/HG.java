@@ -1,5 +1,6 @@
 package org.vnguyen.joreman.model;
 
+import java.util.ArrayList;
 import java.util.Map;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -12,9 +13,9 @@ public class HG {
 	@JsonProperty("domain_id") 			public Integer domainId;
 	@JsonProperty("environment_id") 	public Integer environmentId;
 	@JsonProperty("ancestry") 			public String ancestry;
-	@JsonProperty("label") 				public String label;
+	@JsonProperty("title") 				public String title;
 	
-	@JsonProperty("parameters") 	public Map<String, String> Params;
+	@JsonProperty("parameters") 	public ArrayList<Map<String, String>> Params;
 	@JsonProperty("puppetclass_ids") 	public Integer[] puppetclassIds;
 	
 
